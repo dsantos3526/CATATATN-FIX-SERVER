@@ -54,3 +54,5 @@ extension=ssh2.so
 - https://forum.aapanel.com/d/2833-php-ini-location-issues
 - https://pecl.php.net/package/ssh2
 - https://ehikioya.com/install-ssh2-php/#Installinglibssh2
+- https://talk.plesk.com/threads/how-to-install-ssh2-extension-for-php-7-4-x-with-ubuntu-20-4-1-lts.357507/
+- http://wiki.centos-webpanel.com/install-ssh2-php-extension
