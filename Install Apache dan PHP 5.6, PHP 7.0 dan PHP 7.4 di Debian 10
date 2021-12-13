@@ -1,0 +1,110 @@
+https://www.martinsetiawan.com/2020/10/install-apache-dan-php-56-php-70-dan.html
+
+Install Apache dan PHP 5.6, PHP 7.0 dan PHP 7.4 di Debian 10
+
+sudo apt-get update
+
+sudo apt-get upgrade
+
+1. Apache
+sudo apt-get install apache2 -y
+
+2. Install PPA
+sudo apt install ca-certificates apt-transport-https
+wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
+sudo echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list
+
+
+
+3. Install PHP
+
+apt-get -y install php5.6 php5.6-fpm php5.6-cli php5.6-mysql php5.6-mcrypt
+
+#PHP 5.6
+sudo apt-get install php5.6
+
+#PHP 7
+sudo apt-get install php7.0
+
+#PHP 7.4
+sudo apt-get install php7.4
+
+apt-get -y install php7.4 php7.4-fpm php7.4-cli php7.4-mysql php7.4-mcrypt
+
+apt-get -y install php7.3 php7.3-fpm php7.3-cli php7.3-mysql php7.3-mcrypt
+
+
+Ref:
+https://dev.to/erolj/cara-install-nginx-php-fpm-mysql-php-7-lemp-di-centos-7-3ce9
+https://ilmunewbea.blogspot.com/2017/06/cara-install-ocs-panel-di-vps-debian.html
+https://namiakai.blogspot.com/2018/09/tutorial-install-ocs-panel-debian.html
+https://www.datadoghq.com/blog/nginx-502-bad-gateway-errors-php-fpm/
+https://www.py4u.net/discuss/24354
+https://www.imadenews.com/scripts/script-panel-reseller-ssh-vpn-ocs-panel-gratis/
+https://www.linuxid.net/30710/cara-install-mysql-di-debian-10-buster/
+https://ehikioya.com/install-ssh2-php/
+https://serverpilot.io/docs/how-to-install-the-php-ssh2-extension/
+https://www.tecmint.com/install-different-php-versions-in-ubuntu/
+https://zonabiner.com/tutorial/debian/install-mariadb-phpmyadmin
+
+https://talk.plesk.com/threads/how-to-install-ssh2-extension-for-php-7-4-x-with-ubuntu-20-4-1-lts.357507/
+https://hackerdise.com/how-to-install-the-php-ssh2-extension/
+https://forum.aapanel.com/d/2833-php-ini-location-issues
+
+
+#Install OCSPanel
+
+apt-get -y install php5.6 php5.6-fpm php5.6-cli php5.6-mysql php5.6-mcrypt
+
+sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/5.6/fpm/php.ini
+sed -i 's/listen = \/run\/php\/php5.6-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/5.6/fpm/pool.d/www.conf
+
+listen = /run/php/php5.6-fpm.sock
+
+
+chown -R www-data:www-data /home/vps/public_html/
+chmod -R g+rw /home/vps/public_html/
+
+
+CREATE DATABASE IF NOT EXISTS ocspanel;EXIT;
+
+apt-get -y install git
+
+cd /home/vps/public_html
+
+git init
+
+git remote add origin https://github.com/dsantos3526/ocspanel.git
+
+git pull origin master
+
+chmod 777 /home/vps/public_html/config
+
+chmod 777 /home/vps/public_html/config/config.ini
+
+chmod 777 /home/vps/public_html/config/route.ini
+
+Masuk ke web browser, masukkan alamat ini, http://ip_vps:81/
+
+Setting seperti berikut:
+
+DATABASE
+Database Host: localhost
+Database Name: ocspanel
+Database User: root
+Database Pass: Password MySQL yang telah dibuat tadi
+
+rm -R /home/vps/public_html/installation
+
+
+
+
+
+
+
+
+
+sudo mysql < /usr/share/phpMyAdmin/sql/create_tables.sql -u root -p
+
+#import
+mysql -u root -p nama-database < file-sql.sql
